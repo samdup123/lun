@@ -1,0 +1,16 @@
+-- describe('EventManager', function()
+--   local eventManagerCallbackSpy = function(timeIncrementSpecificConstant)
+--     local outputTable = {}
+--     return function()
+--       local file = io.popen('date +%s%' .. timeIncrementSpecificConstant .. 'N')
+--       local output = file:read('*a')
+--       file:close()
+--       table.insert(outputTable, output)
+--     end
+--   end
+--
+--   it('Should execute a callback on time', function()
+--     local eventManager = EventManager.Init()
+--
+--   end)
+-- end)

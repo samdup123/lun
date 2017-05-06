@@ -1,0 +1,11 @@
+-- local mock = require 'mach'
+-- local EventManagerCallback_Spy = require('EventManagerCallback_Spy')
+--
+-- describe('EventManagerCallback_Spy', function()
+--   local callback = mock.mock_function('callback')
+--
+--   it('Should register callback', function()
+--     local instance = EventManagerCallback_Spy.Init(callback)
+--     callback:should_be_called():when( function() instance.callback() end )
+--   end)
+-- end)
