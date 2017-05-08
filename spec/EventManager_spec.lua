@@ -32,7 +32,7 @@ describe('EventManager', function()
     local expectedTime = getTime() + 100
     EventManager.Init(scheduleAnotherEvent)
 
-    print('timeDiff', outputTable[1], expectedTime, math.abs(outputTable[1] - expectedTime))
+    print('timeDiff', math.abs(outputTable[1] - expectedTime))
     assert.is_true(math.abs(outputTable[1] - expectedTime) <= errorMilliseconds)
   end)
 

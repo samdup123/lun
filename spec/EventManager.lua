@@ -10,7 +10,6 @@ local getTime = function()
 end
 
 function EventManager:ScheduleEvent(newEventCallback, ticksTillItHappens)
-  print('scheduling')
   self.events.callback = newEventCallback
   self.events.goTime = tonumber(getTime() + ticksTillItHappens)
   print(self.events.goTime)
@@ -19,17 +18,13 @@ end
 function EventManager:StartEventLoop()
   while true do
     local currentTime = getTime()
-    print('currentTime', currentTime)
-    if not self.events.goTime then print('break'); break end
+    if not self.events.goTime then break end
     if currentTime >= self.events.goTime then
-      print('event is ready to go')
       self.events.callback()
       self.events = self.events.nextEvent or {}
     else
-      local butts = 'sleep ' .. (self.events.goTime - currentTime)/1000 .. 's'
-      print('sleeping', butts)
-      os.execute(butts)
-      print('done sleeping')
+      local osCommand = 'sleep ' .. (self.events.goTime - currentTime)/1000 .. 's'
+      os.execute(osCommand)
     end
   end
 end
