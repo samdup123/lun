@@ -1,9 +1,10 @@
 local EventManager = {}
 EventManager.__index = EventManager
 
+local timeStepBashCommandConstant = 3
 
 local getTime = function()
-  local file = io.popen('date +%s%3N')
+  local file = io.popen('date +%s%2N')
   local time = file:read('*a')
   file:close()
   return tonumber(time)
@@ -12,7 +13,6 @@ end
 function EventManager:ScheduleEvent(newEventCallback, ticksTillItHappens)
   self.events.callback = newEventCallback
   self.events.goTime = tonumber(getTime() + ticksTillItHappens)
-  print(self.events.goTime)
 end
 
 function EventManager:StartEventLoop()
@@ -23,7 +23,8 @@ function EventManager:StartEventLoop()
       self.events.callback()
       self.events = self.events.nextEvent or {}
     else
-      local osCommand = 'sleep ' .. (self.events.goTime - currentTime)/1000 .. 's'
+      print('sleep', 'sleep ' .. (self.events.goTime - currentTime)/100 .. 's')
+      local osCommand = 'sleep ' .. (self.events.goTime - currentTime)/100 .. 's'
       os.execute(osCommand)
     end
   end
