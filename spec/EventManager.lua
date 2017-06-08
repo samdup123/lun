@@ -11,8 +11,10 @@ local getTime = function()
 end
 
 function EventManager:ScheduleEvent(newEventCallback, ticksTillItHappens)
-  self.events.callback = newEventCallback
-  self.events.goTime = tonumber(getTime() + ticksTillItHappens)
+  self.lastEvent.nextEvent = {}
+  self.lastEvent.nextEvent.callback = newEventCallback
+  self.lastEvent.nextEvent.goTime = tonumber(getTime() + ticksTillItHappens)
+  self.lastEvent = self.lastEvent.nextEvent
 end
 
 function EventManager:StartEventLoop()
@@ -26,7 +28,8 @@ end
 
 function EventManager.Init(firstEvent)
   local obj = {}
-  obj.events = {}
+  obj.events = {callback = function() end, goTime = 0}
+  obj.lastEvent = obj.events
   local instance = setmetatable(obj, EventManager)
   firstEvent(instance)
   instance:StartEventLoop()
