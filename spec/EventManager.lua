@@ -19,14 +19,8 @@ function EventManager:StartEventLoop()
   while true do
     local currentTime = getTime()
     if not self.events.goTime then break end
-    if currentTime >= self.events.goTime then
-      self.events.callback()
-      self.events = self.events.nextEvent or {}
-    else
-      print('sleep', 'sleep ' .. (self.events.goTime - currentTime)/100 .. 's')
-      local osCommand = 'sleep ' .. (self.events.goTime - currentTime)/100 .. 's'
-      os.execute(osCommand)
-    end
+    self.events.callback()
+    self.events = self.events.nextEvent or {}
   end
 end
 
